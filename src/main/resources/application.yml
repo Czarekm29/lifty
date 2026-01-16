@@ -1,3 +1,17 @@
 spring:
-  application:
-    name: lifty_api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lifty
+    username: lifty
+    password: lifty
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  jwt:
+    secret: "PASTE_A_LONG_RANDOM_SECRET_MIN_32_CHARS"
+    issuer: "lifty"
+    accessTokenMinutes: 60
