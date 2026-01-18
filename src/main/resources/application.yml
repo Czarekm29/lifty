@@ -1,17 +1,17 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/lifty
+    url: jdbc:h2:mem:mydb
     username: lifty
     password: lifty
+    driverClassName: org.h2.Driver
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-
-app:
-  jwt:
-    secret: "PASTE_A_LONG_RANDOM_SECRET_MIN_32_CHARS"
-    issuer: "lifty"
-    accessTokenMinutes: 60
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://keycloak:8080/realms/currency-realm}
+          authorities-claim-name: ${AUTH_CLAIM_NAME:realm_access.roles}
+          authority-prefix: ${PREFIX:ROLE_}
